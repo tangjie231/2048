@@ -42,7 +42,7 @@ myGame.controller("gameController", function ($scope, $document, gameService) {
 
 });
 
-myGame.directive("myCube", function (gameService) {
+myGame.directive("myCube", function () {
     var myCube = {
         restrict: "A",
         replace: true,
