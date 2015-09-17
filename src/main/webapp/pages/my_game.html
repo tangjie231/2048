@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <link href="../css/zui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/my.css" rel="stylesheet" type="text/css"/>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.3.9/angular.js"></script>
+    <script src="../js/comm/game.js"></script>
+    <title></title>
+</head>
+<body ng-app="myGame">
+    <div class="content" style="text-align:center;margin-top:200px;margin-left:500px;" ng-controller="gameController">
+        <button ng-click="changeCube()">点击</button>
+        <table >
+            <tr>
+                <td>
+                    <div my-cube cube=cubeList[0]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[1]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[2]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[3]></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div my-cube cube=cubeList[4]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[5]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[6]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[7]></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div my-cube cube=cubeList[8]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[9]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[10]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[11]></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div my-cube cube=cubeList[12]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[13]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[14]></div>
+                </td>
+                <td>
+                    <div my-cube cube=cubeList[15]></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
