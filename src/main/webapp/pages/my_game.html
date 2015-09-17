@@ -10,9 +10,9 @@
 <body ng-app="myGame">
 <div style="text-align: center;width:100%;margin-top:50px;">
     <div class="panel" ng-controller="gameController">
-        <button ng-click="changeCube()" class="btn btn-primary">重新开始</button>
+        <button ng-click="newGame()" class="btn btn-primary">重新开始</button>
         <br/>
-        你的得分：{{score}}
+        你的得分：{{score.value}}
 
         <table style="margin-left: 570px;margin-top: 20px;">
             <tr>

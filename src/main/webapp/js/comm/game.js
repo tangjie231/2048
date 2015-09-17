@@ -17,8 +17,10 @@ function Cube(content, index) {
 var myGame = angular.module("myGame", []);
 myGame.controller("gameController", function ($scope, $document, gameService) {
     $scope.cubeList = gameService.initCubeList();
-    $scope.changeCube = function () {
-        $scope.cubeList[2] = new Cube("16", 2);
+    $scope.score = {value:0};
+
+    $scope.newGame = function(){
+        $scope.cubeList = gameService.initCubeList();
     }
 
     $document.bind("keypress", function (event) {
@@ -26,13 +28,13 @@ myGame.controller("gameController", function ($scope, $document, gameService) {
         var keyCode = event.which || event.keyCode;
         $scope.$apply(function () {
             if (keyCode === 119) {
-                gameService.cubeMoveUp($scope.cubeList);
+                gameService.cubeMoveUp($scope.cubeList,$scope.score);
             } else if (keyCode === 97) {
-                gameService.cubeMoveLeft($scope.cubeList);
+                gameService.cubeMoveLeft($scope.cubeList,$scope.score);
             } else if (keyCode === 115) {
-                gameService.cubeMoveDown($scope.cubeList);
+                gameService.cubeMoveDown($scope.cubeList,$scope.score);
             } else if (keyCode === 100) {
-                gameService.cubeMoveRight($scope.cubeList);
+                gameService.cubeMoveRight($scope.cubeList,$scope.score);
             }
         })
     })
@@ -68,146 +70,98 @@ myGame.service("gameService", function (commService) {
             return cubeList;
         },
 
-        cubeMoveUp: function (cubeList) {
+        cubeMoveUp: function (cubeList,score) {
             for (var i = 4; i < cubeList.length; i++) {
                 var cube = cubeList[i];
                 var perCube = cubeList[cube.index - 4];
 
                 while (cube.row>0) {
-                    if(perCube.content == "" && cube.content != ""){
-                        perCube.content = cube.content;
-                        perCube.canMerge = cube.canMerge;
-                        cube.content = "";
-                    }else if(perCube.content != "" && cube.content != ""){
-                        if(perCube.content == cube.content && perCube.canMerge && cube.canMerge){
-                            perCube.content = Number(perCube.content)*2+"";
-                            perCube.canMerge = false;
-                            cube.content = "";
-                        }
-                    }
-                    cube = cubeList[perCube.index];
+                    cube = this.cubeMove(cube,perCube,cubeList,score);
                     if(cube.row > 0){
                         perCube = cubeList[perCube.index - 4];
                     }
                 }
             }
 
-            for (var i = 0;i<cubeList.length;i++){
-                cubeList[i].canMerge = true;
-            }
-
-            commService.generatorNumber(cubeList);
-
-            if(commService.isGameOver(cubeList)){
-                alert("game over");
-            }
+            this.moveEnd(cubeList);
         },
 
-        cubeMoveDown: function (cubeList) {
+        cubeMoveDown: function (cubeList,score) {
             for (var i = cubeList.length - 5; i >= 0; i--) {
                 var cube = cubeList[i];
                 var perCube = cubeList[cube.index + 4];
 
                 while (cube.row<3) {
-                    if(perCube.content == "" && cube.content != ""){
-                        perCube.content = cube.content;
-                        perCube.canMerge = cube.canMerge;
-                        cube.content = "";
-                    }else if(perCube.content != "" && cube.content != ""){
-                        if(perCube.content == cube.content && perCube.canMerge && cube.canMerge){
-                            perCube.content = Number(perCube.content)*2+"";
-                            perCube.canMerge = false;
-                            cube.content = "";
-                        }
-                    }
-                    cube = cubeList[perCube.index];
-                    if(cube.row > 0){
+                    cube = this.cubeMove(cube,perCube,cubeList,score);
+                    if(cube.row < 3){
                         perCube = cubeList[perCube.index + 4];
                     }
                 }
             }
 
-            for (var i = 0;i<cubeList.length;i++){
-                cubeList[i].canMerge = true;
-            }
-
-            commService.generatorNumber(cubeList);
-
-            if(commService.isGameOver(cubeList)){
-                alert("game over");
-            }
+            this.moveEnd(cubeList);
         },
 
-        cubeMoveLeft: function (cubeList) {
+        cubeMoveLeft: function (cubeList,score) {
             for (var i = 0; i < cubeList.length; i++) {
                 var cube = cubeList[i];
                 var perCube = cubeList[cube.index - 1];
 
                 while (cube.col>0) {
-                    if(perCube.content == "" && cube.content != ""){
-                        perCube.content = cube.content;
-                        perCube.canMerge = cube.canMerge;
-                        cube.content = "";
-                    }else if(perCube.content != "" && cube.content != ""){
-                        if(perCube.content == cube.content && perCube.canMerge && cube.canMerge){
-                            perCube.content = Number(perCube.content)*2+"";
-                            perCube.canMerge = false;
-                            cube.content = "";
-                        }
-                    }
-                    cube = cubeList[perCube.index];
+                    cube = this.cubeMove(cube,perCube,cubeList,score);
                     if(cube.col>0){
                         perCube = cubeList[perCube.index - 1];
                     }
                 }
             }
 
-            for (var i = 0;i<cubeList.length;i++){
-                cubeList[i].canMerge = true;
-            }
-
-            commService.generatorNumber(cubeList);
-
-            if(commService.isGameOver(cubeList)){
-                alert("game over");
-            }
+            this.moveEnd(cubeList);
         },
 
-        cubeMoveRight: function (cubeList) {
+        cubeMoveRight: function (cubeList,score) {
             for (var i = cubeList.length - 1; i >= 0; i--) {
                 var cube = cubeList[i];
                 var perCube = cubeList[cube.index + 1];
 
                 while (cube.col<3) {
-                    if(perCube.content == "" && cube.content != ""){
-                        perCube.content = cube.content;
-                        perCube.canMerge = cube.canMerge;
-                        cube.content = "";
-                    }else if(perCube.content != "" && cube.content != ""){
-                        if(perCube.content == cube.content && perCube.canMerge && cube.canMerge){
-                            perCube.content = Number(perCube.content)*2+"";
-                            perCube.canMerge = false;
-                            cube.content = "";
-                        }
-                    }
-                    cube = cubeList[perCube.index];
+                    cube = this.cubeMove(cube,perCube,cubeList,score);
                     if(cube.col<3){
                         perCube = cubeList[perCube.index + 1];
                     }
                 }
             }
+            this.moveEnd(cubeList);
+        },
 
+        cubeMove:function(cube,perCube,cubeList,score){
+            if(perCube.content == "" && cube.content != ""){
+                perCube.content = cube.content;
+                perCube.canMerge = cube.canMerge;
+                cube.content = "";
+            }else if(perCube.content != "" && cube.content != ""){
+                if(perCube.content == cube.content && perCube.canMerge && cube.canMerge){
+                    perCube.content = Number(perCube.content)*2+"";
+                    perCube.canMerge = false;
+                    cube.content = "";
+
+                    score.value = Number(perCube.content) + score.value;
+                }
+            }
+            cube = cubeList[perCube.index];
+            return cube;
+        },
+
+        moveEnd:function(cubeList) {
             for (var i = 0;i<cubeList.length;i++){
                 cubeList[i].canMerge = true;
             }
 
             commService.generatorNumber(cubeList);
 
-            if(commService.isGameOver(cubeList)){
-                alert("game over");
+            if (commService.isGameOver(cubeList)) {
+                alert("GAME OVER");
             }
         }
-
     }
 });
 
