@@ -8,9 +8,13 @@
     <title></title>
 </head>
 <body ng-app="myGame">
-    <div class="content" style="text-align:center;margin-top:200px;margin-left:500px;" ng-controller="gameController">
-        <button ng-click="changeCube()">点击</button>
-        <table >
+<div style="text-align: center;width:100%;margin-top:50px;">
+    <div class="panel" ng-controller="gameController">
+        <button ng-click="changeCube()" class="btn btn-primary">重新开始</button>
+        <br/>
+        你的得分：{{score}}
+
+        <table style="margin-left: 570px;margin-top: 20px;">
             <tr>
                 <td>
                     <div my-cube cube=cubeList[0]></div>
@@ -69,5 +73,6 @@
             </tr>
         </table>
     </div>
+</div>
 </body>
 </html>
