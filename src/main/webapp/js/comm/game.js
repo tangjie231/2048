@@ -24,7 +24,7 @@ myGame.controller("gameController", function ($scope, $document, gameService) {
     }
 
     $document.bind("keypress", function (event) {
-        //alert(event.which||event.keyCode);
+
         var keyCode = event.which || event.keyCode;
         $scope.$apply(function () {
             if (keyCode === 119) {

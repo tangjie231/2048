@@ -34,3 +34,10 @@
     color: #f1f1f1
 }
 
+@media (max-width: 400px){
+    #game_div{
+        width: 100%;
+        text-align: center;
+    }
+}
+
