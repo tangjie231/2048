@@ -8,14 +8,14 @@
     <title></title>
 </head>
 <body ng-app="myGame">
-<div id="game_div" style="text-align: center;width:100%;margin-top:50px;">
+<div id="game_div" >
     <div class="panel" ng-controller="gameController">
         <button ng-click="newGame()" class="btn btn-primary">重新开始</button>
         <br/>
         <div style="margin-top:5px;"></div>
         你的得分：{{score.value}}
 
-        <table style="margin-left: 570px;margin-top: 20px;">
+        <table style="margin:0 auto;">
             <tr>
                 <td>
                     <div my-cube cube=cubeList[0]></div>
