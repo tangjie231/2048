@@ -14,7 +14,7 @@ function Cube(content, index) {
 
 
 
-var myGame = angular.module("myGame", []);
+var myGame = angular.module("myGame", ["myApp"]);
 myGame.controller("gameController", function ($scope, $document, gameService) {
     $scope.cubeList = gameService.initCubeList();
     $scope.score = {value:0};

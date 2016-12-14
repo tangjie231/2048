@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head lang="zh-cn">
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <link href="../css/zui.css" rel="stylesheet" type="text/css"/>
-    <script src="http://apps.bdimg.com/libs/angular.js/1.3.9/angular.js"></script>
-    <script src="../js/comm/nav.js"></script>
-    <title></title>
+    <title>Document</title>
 </head>
-<body ng-app="myApp">
-<div class="panel-body" style="height: 50px;margin-top: 5px;text-align: center">
-    header
-</div>
-<div ng-controller="navController" class="panel" style="width: 200px;">
-    <nav class="menu" data-toggle="menu" style="width: 200px;">
-        <ul class="nav nav-primary">
-            <li menu-action ng-repeat="action in actionList" show-message="showMessage('jie')" info=action></li>
-        </ul>
-    </nav>
-</div>
+<body>
+    <div id="root"></div>
+    <script type="text/javascript" src="http://localhost:8080/build.js"></script>
 </body>
 </html>
